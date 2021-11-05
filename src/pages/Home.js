@@ -1,3 +1,5 @@
+import Products from '../components/Products';
+
 const Home = () => {
   return (
     <>
@@ -19,6 +21,10 @@ const Home = () => {
             <img className="w-4/5" src="/images/pizza.png" alt="pizza" />
           </div>
         </div>
+      </div>
+
+      <div className="pb-24">
+        <Products />
       </div>
     </>
   );
