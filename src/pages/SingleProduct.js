@@ -15,7 +15,7 @@ const SingleProduct = () => {
       .then((product) => {
         setProduct(product);
       });
-  }, []);
+  }, [params._id]);
 
   return (
     <div className="container mx-auto mt-12">
