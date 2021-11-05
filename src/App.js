@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import ProductsPage from './pages/ProductsPage';
 import Cart from './pages/Cart';
-import Product from './components/Product';
+import SingleProduct from './pages/SingleProduct';
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/productspage" element={<ProductsPage />}></Route>
+          <Route path="/products/:_id" element={<SingleProduct />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
-          <Route path="/product" element={<Product />}></Route>
         </Routes>
       </div>
     </Router>
