@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../CartContext';
+import { useState } from 'react';
 
 const Product = ({ product }) => {
+  // State to change the color and text of ADD button:
+  const [isAdding, setIsAdding] = useState(false);
+
   const { cart, setCart } = useContext(CartContext);
 
   // Add to cart
@@ -38,6 +42,10 @@ const Product = ({ product }) => {
 
     // Now, 'setCart' must be used to set the cart as per the updated data. To use setCart here, it must be passed in value in App. So, 'setCart' is also added to 'value' in App and received in useContext, and used here:
     setCart(_cart);
+    setIsAdding(true);
+    setTimeout(() => {
+      setIsAdding(false);
+    }, 1000);
 
     // This is all logic needed to add products to cart.
 
@@ -69,12 +77,15 @@ const Product = ({ product }) => {
         <div className="flex justify-between items-center mt-4">
           <span>₹ {product.price}</span>
           <button
-            className="bg-yellow-500 py-1 px-4 rounded-full font-bold"
+            className={`${
+              isAdding ? 'bg-green-500' : 'bg-yellow-500'
+            }  py-1 px-4 rounded-full font-bold`}
             onClick={(e) => {
               addToCart(e, product);
             }}
+            disabled={isAdding}
           >
-            ADD
+            ADD{isAdding ? 'ED' : ''}
           </button>
         </div>
       </div>
