@@ -30,10 +30,11 @@ const Product = ({ product }) => {
       _cart.items[product._id] = 1;
     }
 
-    // Finally, total number of items added to the cart must be updated in 'totalItems'. But before doing it, it is better to check if there if there in nothing in the cart:
+    // Finally, total number of items added to the cart must be updated in 'totalItems'. If there is no item in the cart, value of _cart.totalItems must be set to zero to avoid errors:
     if (!_cart.totalItems) {
-      _cart.totalItems += 1;
+      _cart.totalItems = 0;
     }
+    _cart.totalItems += 1;
 
     // Now, 'setCart' must be used to set the cart as per the updated data. To use setCart here, it must be passed in value in App. So, 'setCart' is also added to 'value' in App and received in useContext, and used here:
     setCart(_cart);
