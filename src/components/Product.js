@@ -3,7 +3,18 @@ const Product = ({ product }) => {
   // Add to cart
   const addToCart = (e, product) => {
     e.preventDefault(); // to prevent redirecting to SingleProduct on clicking "ADD"
-    console.log(product);
+
+    // Logic for cart data:
+    // cart will be an object, which has 'items' object in it that contains 'id' of items as key and number of that item as its value. And it contains 'totalItems' that has the value of total number of items in the cart as shown below (for understanding purpose):
+    /* 
+    const cart = {
+      items: {
+        '60c67bdff5ee510015f3dda8': 2,
+        '60c67bc0f5ee510015f3dda7': 3,
+      },
+      totalItems: 5,
+    }; 
+    */
   };
 
   return (
