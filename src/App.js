@@ -17,7 +17,13 @@ function App() {
   // Once the data is in the cart, that is fetched using useEffect:
   useEffect(() => {
     const cart = window.localStorage.getItem('cart');
-  }, []);
+  }, []); // empty dependency array is to achieve the above only when teh component is mounted.
+
+  // To reflect the updated 'cart' data obtained with setCart in local storage, another useEffect hook is used with 'cart' as dependency array:
+  useEffect(() => {
+    window.localStorage.setItem('cart', JSON.stringify(cart));
+    // updated 'cart' object is stored in LS for 'cart'. Successful working of this can be checked in LS under 'Application' tab of console. With each "ADD" click, both items and total items are updated.
+  });
 
   return (
     <Router>

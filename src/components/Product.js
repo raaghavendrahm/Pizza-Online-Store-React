@@ -41,6 +41,8 @@ const Product = ({ product }) => {
 
     // This is all logic needed to add products to cart.
 
+    // Now, with setCart, 'cart' data is updated in 'useState' in App. But, this is not yet reflected in localstorage. To do that, another useEffect hook in used in App comp.
+
     // Logic for cart data:
     // cart will be an object, which has 'items' object in it that contains 'id' of items as key and number of that item as its value. And it contains 'totalItems' that has the value of total number of items in the cart as shown below (for understanding purpose):
     /* 
