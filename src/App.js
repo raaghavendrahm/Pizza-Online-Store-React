@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Router>
-      <CartContext.Provider value={{ cart }}>
+      <CartContext.Provider value={{ cart, setCart }}>
         <div className="App">
           <Navbar></Navbar>
           <Routes>
