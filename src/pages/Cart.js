@@ -44,6 +44,19 @@ const Cart = () => {
     setCart(_cart); // updated the main cart data (in App) w.r.t updated local copy that reflects everywhere needed (both in quantity of that product and total product on Nav)
   };
 
+  // Decrement
+  const decrement = (productId) => {
+    const existingQty = cart.items[productId]; // gives existing qty on clicked product
+    if (existingQty === 1) {
+      return;
+      // When '-' is clicked, number should not go less than 1. Least number should be 1. If not even 1 needed, it shall be deleted which is taken care in 'deleting item' logic.
+    }
+    const _cart = { ...cart }; // cloning cart as a local copy that can be modified
+    _cart.items[productId] = existingQty - 1; // decrementing the qty of clicked product on local copy by 1
+    _cart.totalItems -= 1; // decrement the value of totalItems of local copy by 1
+    setCart(_cart); // updated the main cart data (in App) w.r.t updated local copy that reflects everywhere needed (both in quantity of that product and total product on Nav)
+  };
+
   return (
     <div className="container mx-auto lg:w-1/2 w-full pb-24">
       <h1 className="my-12 font-bold">Cart Items</h1>
@@ -58,7 +71,12 @@ const Cart = () => {
                   <span className="font-bold ml-4 w-48">{product.name}</span>
                 </div>
                 <div>
-                  <button className="bg-yellow-500 px-4 py-2 rounded-full leading-none">
+                  <button
+                    className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
+                    onClick={() => {
+                      decrement(product._id);
+                    }}
+                  >
                     -
                   </button>
                   <b className="px-4">{getQty(product._id)}</b>
