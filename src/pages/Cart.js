@@ -58,56 +58,61 @@ const Cart = () => {
   };
 
   return (
-    <div className="container mx-auto lg:w-1/2 w-full pb-24">
-      <h1 className="my-12 font-bold">Cart Items</h1>
-      <ul>
-        {/* Looping through the data fetched to display on Cart page */}
-        {products.map((product) => {
-          return (
-            <li className="mb-12" key={product._id}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <img className="h-16" src={product.image} alt="" />
-                  <span className="font-bold ml-4 w-48">{product.name}</span>
-                </div>
-                <div>
-                  <button
-                    className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
-                    onClick={() => {
-                      decrement(product._id);
-                    }}
-                  >
-                    -
+    // If the cart is empty, corresponding image to be displayed. If cart has items, those items (products) must be displayed:
+    !products.length ? (
+      <img src="/images/empty-cart.png" alt="" />
+    ) : (
+      <div className="container mx-auto lg:w-1/2 w-full pb-24">
+        <h1 className="my-12 font-bold">Cart Items</h1>
+        <ul>
+          {/* Looping through the data fetched to display on Cart page */}
+          {products.map((product) => {
+            return (
+              <li className="mb-12" key={product._id}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <img className="h-16" src={product.image} alt="" />
+                    <span className="font-bold ml-4 w-48">{product.name}</span>
+                  </div>
+                  <div>
+                    <button
+                      className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
+                      onClick={() => {
+                        decrement(product._id);
+                      }}
+                    >
+                      -
+                    </button>
+                    <b className="px-4">{getQty(product._id)}</b>
+                    <button
+                      className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
+                      onClick={() => {
+                        increment(product._id);
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span>₹ {product.price}</span>
+                  <button className="bg-red-500 px-4 py-2 rounded-full leading-none text-white">
+                    Delete
                   </button>
-                  <b className="px-4">{getQty(product._id)}</b>
-                  <button
-                    className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
-                    onClick={() => {
-                      increment(product._id);
-                    }}
-                  >
-                    +
-                  </button>
                 </div>
-                <span>₹ {product.price}</span>
-                <button className="bg-red-500 px-4 py-2 rounded-full leading-none text-white">
-                  Delete
-                </button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-      <hr className="my-6" />
-      <div className="text-right">
-        <b>Grand Total:</b> ₹ 1000
+              </li>
+            );
+          })}
+        </ul>
+        <hr className="my-6" />
+        <div className="text-right">
+          <b>Grand Total:</b> ₹ 1000
+        </div>
+        <div className="text-right mt-6">
+          <button className="bg-yellow-500 px-4 py-2 rounded-full leading-none">
+            Order Now
+          </button>
+        </div>
       </div>
-      <div className="text-right mt-6">
-        <button className="bg-yellow-500 px-4 py-2 rounded-full leading-none">
-          Order Now
-        </button>
-      </div>
-    </div>
+    )
   );
 };
 
