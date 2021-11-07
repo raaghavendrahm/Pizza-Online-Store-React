@@ -9,6 +9,9 @@ const Cart = () => {
   // State to store fetched products:
   const [products, setProducts] = useState([]);
 
+  // variable to update total sum:
+  let total = 0;
+
   // using the product ids obtained from above, those products are fetched using useEffect:
   useEffect(() => {
     // If the cart is empty, nothing to be done:
@@ -59,7 +62,8 @@ const Cart = () => {
 
   // Get Sum
   const getSum = (productId, price) => {
-    const sum = price * getQty(productId); // updates the price of the product (on which + or - is clicked w.r.t its quantity in the cart currently)
+    const sum = price * getQty(productId); // updates the price of the product (on which + or - is clicked w.r.t its quantity in the cart currently).
+    total += sum; // updates grand total w.r.t every change in sum with addition and deletion of items in cart. So, for each + or -, 'sum' is updated and that updated sum is added to current 'total' which is the value of grand total.
     return sum;
   };
 
@@ -110,7 +114,7 @@ const Cart = () => {
         </ul>
         <hr className="my-6" />
         <div className="text-right">
-          <b>Grand Total:</b> ₹ 1000
+          <b>Grand Total:</b> ₹ {total}
         </div>
         <div className="text-right mt-6">
           <button className="bg-yellow-500 px-4 py-2 rounded-full leading-none">
