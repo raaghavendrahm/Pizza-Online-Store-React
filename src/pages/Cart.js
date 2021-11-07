@@ -57,6 +57,12 @@ const Cart = () => {
     setCart(_cart); // updated the main cart data (in App) w.r.t updated local copy that reflects everywhere needed (both in quantity of that product and total product on Nav)
   };
 
+  // Get Sum
+  const getSum = (productId, price) => {
+    const sum = price * getQty(productId); // updates the price of the product (on which + or - is clicked w.r.t its quantity in the cart currently)
+    return sum;
+  };
+
   return (
     // If the cart is empty, corresponding image to be displayed. If cart has items, those items (products) must be displayed:
     !products.length ? (
@@ -93,7 +99,7 @@ const Cart = () => {
                       +
                     </button>
                   </div>
-                  <span>₹ {product.price}</span>
+                  <span>₹ {getSum(product._id, product.price)}</span>
                   <button className="bg-red-500 px-4 py-2 rounded-full leading-none text-white">
                     Delete
                   </button>
