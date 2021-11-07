@@ -29,7 +29,8 @@ const Navbar = () => {
           <li className="ml-6">
             <Link to="/cart">
               <div style={cartStyle}>
-                <span>{cart.totalItems}</span>
+                <span>{cart.totalItems ? cart.totalItems : 0}</span>
+                {/* In the above code, if there is any item in the cart, that number should be shown, else 0 to be shown. This is done to take care of the error that may appear due to this.*/}
                 <img className="ml-2" src="/images/cart.png" alt="cart-icon" />
               </div>
             </Link>
