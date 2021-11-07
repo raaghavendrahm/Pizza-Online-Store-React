@@ -4,7 +4,7 @@ import { CartContext } from '../CartContext';
 
 const Cart = () => {
   // updated cart data is received from useState of App comp through useContext:
-  const { cart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
 
   // State to store fetched products:
   const [products, setProducts] = useState([]);
@@ -35,6 +35,15 @@ const Cart = () => {
     return cart.items[productId];
   };
 
+  // Increment
+  const increment = (productId) => {
+    const existingQty = cart.items[productId]; // gives existing qty on clicked product
+    const _cart = { ...cart }; // cloning cart as a local copy that can be modified
+    _cart.items[productId] = existingQty + 1; // incrementing the qty of clicked product on local copy by 1
+    _cart.totalItems += 1; // increment the value of totalItems of local copy by 1
+    setCart(_cart); // updated the main cart data (in App) w.r.t updated local copy that reflects everywhere needed (both in quantity of that product and total product on Nav)
+  };
+
   return (
     <div className="container mx-auto lg:w-1/2 w-full pb-24">
       <h1 className="my-12 font-bold">Cart Items</h1>
@@ -53,7 +62,12 @@ const Cart = () => {
                     -
                   </button>
                   <b className="px-4">{getQty(product._id)}</b>
-                  <button className="bg-yellow-500 px-4 py-2 rounded-full leading-none">
+                  <button
+                    className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
+                    onClick={() => {
+                      increment(product._id);
+                    }}
+                  >
                     +
                   </button>
                 </div>
