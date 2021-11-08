@@ -12,10 +12,18 @@ const Cart = () => {
   // variable to update total sum:
   let total = 0;
 
+  // There is an important optimization needed w.r.t below 'cart-items' fetch call. That is, with each increment or decrement of items in the cart, corresponding function executes which runs 'setCart', which inturn changes the main 'cart' data. As 'cart' is the dependency array for 'fetch-items' useEffect below, this re-renders the page and results in making 'cart-items' fetch call again on the server, which is not needed each time like this with every increment or decrement. Once, data is fetched, it is enough and need to repeat fetch call with each increment or decrement. This is prevented by creating 'priceFetched' state and setting it 'false' in the beginning and 'true' once data is fetched from 'cart-items' end point:
+  const [priceFetched, togglePriceFetched] = useState(false);
+
   // using the product ids obtained from above, those products are fetched using useEffect:
   useEffect(() => {
     // If the cart is empty, nothing to be done:
     if (!cart.items) {
+      return;
+    }
+
+    // If priceFetched is 'true' fetch call on 'cart-items' is not required as data is already fetched before:
+    if (priceFetched) {
       return;
     }
 
@@ -30,6 +38,8 @@ const Cart = () => {
       .then((response) => response.json())
       .then((products) => {
         setProducts(products);
+        // Toggle priceFetched to 'true' so that no fetch call is done agian on 'cart-items':
+        togglePriceFetched(true);
       });
   }, [cart]); // 'cart' is used as dependency array beacuse fetching id from LS and product from server with that id takes time. So, if there is no data yet, there is nothing to fetch. So, with cart as dependency, this executes only with change in cart data (that is, once cart data is fetched).
 
