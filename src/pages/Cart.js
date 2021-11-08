@@ -41,7 +41,7 @@ const Cart = () => {
         // Toggle priceFetched to 'true' so that no fetch call is done agian on 'cart-items':
         togglePriceFetched(true);
       });
-  }, [cart]); // 'cart' is used as dependency array beacuse fetching id from LS and product from server with that id takes time. So, if there is no data yet, there is nothing to fetch. So, with cart as dependency, this executes only with change in cart data (that is, once cart data is fetched).
+  }, [cart, priceFetched]); // 'cart' is used as dependency array beacuse fetching id from LS and product from server with that id takes time. So, if there is no data yet, there is nothing to fetch. So, with cart as dependency, this executes only with change in cart data (that is, once cart data is fetched).
 
   // Get quantity
   const getQty = (productId) => {

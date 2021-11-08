@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import Product from './Product';
-import { CartContext } from '../CartContext';
-import { useContext } from 'react';
 
 const Products = () => {
   // const { name } = useContext(CartContext);

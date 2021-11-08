@@ -1,8 +1,11 @@
 // Getting data from LS and storing data to LS is kept here and exported. It is imported in App to make it look cleaner.
 
 export const getCart = () => {
-  const cart = window.localStorage.getItem('cart');
-  return cart;
+  // The process of getting item from LS takes time. So, to handle the further process better by running 'setCart(JSON.parse(cart))' only after 'cart' data is ready, let's return a promise:
+  return new Promise((resolve, reject) => {
+    const cart = window.localStorage.getItem('cart');
+    resolve(cart);
+  });
 };
 
 export const storeCart = (cart) => {

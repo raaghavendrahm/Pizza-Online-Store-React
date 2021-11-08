@@ -17,9 +17,12 @@ function App() {
 
   // Once the data is in the cart, that is fetched using useEffect:
   useEffect(() => {
-    const cart = getCart(); // getCart() from Helpers returns 'cart' which is stored in 'cart' variable.
-    setCart(JSON.parse(cart)); // cart data from local storage.
-    // So, now 'cart' data in 'useState' is completely fresh and updated. So, through context, this can be access by any component in the context scope.
+    // Let's handle the promise returned by getCart() from Helpers:
+    getCart().then((cart) => {
+      // Now, with promise, availability of 'cart' data is assured. So, setCart is confidently executed:
+      setCart(JSON.parse(cart)); // cart data from local storage.
+      // So, now 'cart' data in 'useState' is completely fresh and updated. So, through context, this can be access by any component in the context scope.
+    });
   }, []); // empty dependency array is to achieve the above only when teh component is mounted.
 
   // To reflect the updated 'cart' data obtained with setCart in local storage, another useEffect hook is used with 'cart' as dependency array:
