@@ -103,10 +103,30 @@ const Cart = () => {
     setProducts(updatedProductList);
   };
 
+  // Handle Order Now
+  const handleOrderNow = () => {
+    // Display alert message:
+    window.alert('Order Placed Successfully!');
+
+    // Set 'products' to an empty array:
+    setProducts([]);
+
+    // Set 'cart' to an empty object:
+    setCart({});
+
+    // As 'proudcts' is empty (length is zero or no length), check in 'return' will be true for '!products.length' and empty cart image will be displayed.
+
+    // As no call on the backend is done, this completes 'Order Now'.
+  };
+
   return (
     // If the cart is empty, corresponding image to be displayed. If cart has items, those items (products) must be displayed:
     !products.length ? (
-      <img src="/images/empty-cart.png" alt="" />
+      <img
+        className="mx-auto w-1/2 mt-12"
+        src="/images/empty-cart.png"
+        alt=""
+      />
     ) : (
       <div className="container mx-auto lg:w-1/2 w-full pb-24">
         <h1 className="my-12 font-bold">Cart Items</h1>
@@ -158,7 +178,10 @@ const Cart = () => {
           <b>Grand Total:</b> ₹ {total}
         </div>
         <div className="text-right mt-6">
-          <button className="bg-yellow-500 px-4 py-2 rounded-full leading-none">
+          <button
+            className="bg-yellow-500 px-4 py-2 rounded-full leading-none"
+            onClick={handleOrderNow}
+          >
             Order Now
           </button>
         </div>
