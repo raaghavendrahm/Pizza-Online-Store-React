@@ -77,6 +77,32 @@ const Cart = () => {
     return sum;
   };
 
+  // Handle Delete
+  const handleDelete = (productId) => {
+    const _cart = { ...cart }; // cloning
+    const qty = _cart.items[productId]; // gets the quantity of clicked product. This is required to delete this qunatity from total quantity.
+
+    // We need to serach for the key (productId) of the clicked product and delete it. As _cart is an object, to delete a property from an object, "delete" keyword is used. As each product is a property of _cart object, 'delete' is used to delete them:
+    delete _cart.items[productId];
+
+    // Now, updating 'totalItems' by subtracting 'qty' from it:
+    _cart.totalItems -= qty;
+
+    // Update the 'cart' data (state) with current updated '_cart':
+    setCart(_cart);
+
+    // But the above just display 'NaN' in price but doesn't remove the product from UI unless the page is refreshed. But, it shall be removed from UI when 'Delete' is clicked. This can be done by filtering the deleted product from 'products' data on which 'map' is used:
+    const updatedProductList = products.filter(
+      (product) => product._id !== productId
+      // filter returns 'true' if the defined condition is matched, else returns 'false', and returns the ones which are 'true'. So, if the clicked id (productId) is not matching with current id (id of the product in the current iteration of the loop which is product._id), that product will be returned. If 'productId' matches with 'product._id', it will not be returned.
+
+      // This successfully removes the product from UI when clicked on its 'Delete' button (without refreshing page).
+    );
+
+    // Update the 'products' data (state) with current 'products' state which is 'updatedProductList':
+    setProducts(updatedProductList);
+  };
+
   return (
     // If the cart is empty, corresponding image to be displayed. If cart has items, those items (products) must be displayed:
     !products.length ? (
@@ -114,7 +140,12 @@ const Cart = () => {
                     </button>
                   </div>
                   <span>₹ {getSum(product._id, product.price)}</span>
-                  <button className="bg-red-500 px-4 py-2 rounded-full leading-none text-white">
+                  <button
+                    className="bg-red-500 px-4 py-2 rounded-full leading-none text-white"
+                    onClick={() => {
+                      handleDelete(product._id);
+                    }}
+                  >
                     Delete
                   </button>
                 </div>
