@@ -7,6 +7,7 @@ import SingleProduct from './pages/SingleProduct';
 import { CartContext } from './CartContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { getCart, storeCart } from './Helpers';
 
 function App() {
   // cart data must be fetched from localstorage as users may have added items to cart. To do this, a local state 'cart' is created:
@@ -16,18 +17,18 @@ function App() {
 
   // Once the data is in the cart, that is fetched using useEffect:
   useEffect(() => {
-    const cart = window.localStorage.getItem('cart');
+    const cart = getCart(); // getCart() from Helpers returns 'cart' which is stored in 'cart' variable.
     setCart(JSON.parse(cart)); // cart data from local storage.
     // So, now 'cart' data in 'useState' is completely fresh and updated. So, through context, this can be access by any component in the context scope.
   }, []); // empty dependency array is to achieve the above only when teh component is mounted.
 
   // To reflect the updated 'cart' data obtained with setCart in local storage, another useEffect hook is used with 'cart' as dependency array:
   useEffect(() => {
-    window.localStorage.setItem('cart', JSON.stringify(cart));
+    storeCart(JSON.stringify(cart));
     // updated 'cart' object is stored in LS for 'cart'. Successful working of this can be checked in LS under 'Application' tab of console. With each "ADD" click, both items and total items are updated.
 
     // Now, the updated cart data in local storage can be fetched in above useEffect hook.
-  });
+  }, [cart]);
 
   return (
     <Router>
